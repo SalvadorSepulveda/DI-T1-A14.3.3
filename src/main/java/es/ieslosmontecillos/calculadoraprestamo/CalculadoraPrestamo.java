@@ -86,16 +86,21 @@ public class CalculadoraPrestamo extends Application {
     }
 
     private void calculateMonthlyPayment() {
-        double interestRate = Double.parseDouble(interestRateTextField.getText());
-        int years = Integer.parseInt(yearsTextField.getText());
-        double loanAmount = Double.parseDouble(loanAmountTextField.getText());
-        double monthlyInterestRate = interestRate / (100 * 12);
-        int numberOfPayments = years * 12;
+        try {
+            double interestRate = Double.parseDouble(interestRateTextField.getText());
+            int years = Integer.parseInt(yearsTextField.getText());
+            double loanAmount = Double.parseDouble(loanAmountTextField.getText());
+            double monthlyInterestRate = interestRate / (100 * 12);
+            int numberOfPayments = years * 12;
 
-        double monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -numberOfPayments));
-        double totalPayment = monthlyPayment * numberOfPayments;
+            double monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -numberOfPayments));
+            double totalPayment = monthlyPayment * numberOfPayments;
 
-        this.monthlyPayment.setText(String.format("%.2f€", monthlyPayment));
-        this.totalPayment.setText(String.format("%.2f€", totalPayment));
+            this.monthlyPayment.setText(String.format("%.2f€", monthlyPayment));
+            this.totalPayment.setText(String.format("%.2f€", totalPayment));
+        } catch (Exception e) {
+            this.monthlyPayment.setText("Error");
+            this.totalPayment.setText("Error");
+        }
     }
 }
